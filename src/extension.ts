@@ -7,6 +7,8 @@ import { exec } from "child_process";
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+  console.log("mfj plugin is activated.");
+
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with  registerCommand
   // The commandId parameter must match the command field in package.json
@@ -33,7 +35,6 @@ export function activate(context: vscode.ExtensionContext) {
       }
     });
   });
-  context.subscriptions.push(openBrowser);
 
   const yewSyntax = vscode.commands.registerCommand("extension.yewSyntax", async () => {
     const activeTextEditor = vscode.window.activeTextEditor;
@@ -45,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
       editBuilder.replace(s.with(), converted);
     });
   });
-  context.subscriptions.push(yewSyntax);
+  context.subscriptions.push(openBrowser, yewSyntax);
 }
 
 function convert_class(plain: string): string {
