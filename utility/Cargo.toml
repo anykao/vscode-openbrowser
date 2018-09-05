@@ -1,0 +1,7 @@
+[package]
+authors = ["cr4ftsm4n <mou.hangun@gmail.com>"]
+name = "utility"
+version = "0.1.0"
+
+[dependencies]
+structopt = "0.2.10"
