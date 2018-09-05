@@ -8,8 +8,6 @@ branches:
     - master
 
 install:
-  - npm install
-
+  - yarn
 script:
-  - npm run vscode:prepublish
-  
+  - yarn vscode:prepublish
