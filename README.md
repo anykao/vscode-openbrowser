@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/anykao/vscode-openbrowser.svg?branch=master)](https://travis-ci.com/anykao/vscode-openbrowser)
+---
 in setting.json
 
 ```json
