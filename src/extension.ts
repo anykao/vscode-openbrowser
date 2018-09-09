@@ -3,7 +3,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode"
 import { exec } from "child_process"
-import * as prettier from "prettier"
+const { html_beautify } = require("js-beautify")
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -13,7 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
-    const openBrowser = vscode.commands.registerCommand("extension.openBrowser", () => {
+    const openBrowser = vscode.commands.registerCommand("myplugin.openBrowser", () => {
         const activeTextEditor = vscode.window.activeTextEditor
         const d = activeTextEditor.document
         const s = activeTextEditor.selection
@@ -37,50 +37,21 @@ export function activate(context: vscode.ExtensionContext) {
         })
     })
 
-    const yewSyntax = vscode.commands.registerCommand("extension.yewSyntax", async () => {
+    const formatHTML = vscode.commands.registerCommand("myplugin.formatHTML", async () => {
         const activeTextEditor = vscode.window.activeTextEditor
         const d = activeTextEditor.document
         const s = activeTextEditor.selection
         const selected = d.getText(s)
-        const converted = convert_class(selected)
+        const converted = format(selected)
         return activeTextEditor.edit(editBuilder => {
             editBuilder.replace(s.with(), converted)
         })
     })
-
-    const formatHTML = vscode.commands.registerCommand("extension.formatHTML", async () => {
-        const activeTextEditor = vscode.window.activeTextEditor
-        const d = activeTextEditor.document
-        const s = activeTextEditor.selection
-        const selected = d.getText(s)
-        const converted = convert_class(selected)
-        return activeTextEditor.edit(editBuilder => {
-            editBuilder.replace(s.with(), converted)
-        })
-    })
-    context.subscriptions.push(openBrowser, yewSyntax)
+    context.subscriptions.push(openBrowser, formatHTML)
 }
 
-function convert_class(plain: string): string {
-    if (plain.startsWith("class")) {
-        let startIdx = plain.indexOf('"')
-        let endIdx = plain.lastIndexOf('"')
-        if (startIdx < 0) {
-            startIdx = plain.indexOf("'")
-            endIdx = plain.lastIndexOf("'")
-        }
-        if (startIdx >= 0 && endIdx >= 0) {
-            const classes = plain.substring(startIdx + 1, endIdx)
-            const output = classes
-                .split(" ")
-                .map(cls => {
-                    return `"${cls}"`
-                })
-                .join(", ")
-            return `class=(${output}),`
-        }
-    }
-    return plain
+function format(original: string): string {
+    return html_beautify(original, {})
 }
 
 function open_command(path: string): string {

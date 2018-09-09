@@ -17,6 +17,11 @@
                 "command": "myplugin.openBrowser",
                 "title": "Open Browser",
                 "category": "My"
+            },
+            {
+                "command": "myplugin.formatHTML",
+                "title": "format html",
+                "category": "My"
             }
         ]
     },
@@ -32,6 +37,6 @@
         "vscode": "^1.1.21"
     },
     "dependencies": {
-        "prettier": "^1.14.2"
+        "js-beautify": "^1.8.4"
     }
 }
