@@ -4,6 +4,7 @@
     "description": "open selection in browser",
     "version": "0.0.1",
     "publisher": "anykao",
+    "license": "MIT",
     "engines": {
         "vscode": "^1.26.0"
     },
